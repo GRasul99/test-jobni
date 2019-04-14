@@ -3,32 +3,33 @@
     <v-flex xs6>
       <h3>Профессии</h3>
       <v-list>
-        <v-list-group
-          v-for="chekboxLabel in chekboxLabels"
-          :key="chekboxLabel.title"
-          no-action
-        >
-          <template v-slot:activator>
-            <v-list-tile>
-              <v-checkbox
-                v-model="checkbox"
-                :label="chekboxLabel.title"
-              ></v-checkbox>
+        <template v-for="(language, index) in languages">
+          <v-list-group no-action sub-group :key="language.id" v-if='language.level_of_proficiency'>
+            <v-list-tile slot="activator" class="v-list__no_hover">
+              <v-checkbox :label="language.name" v-model="language.value">
+              </v-checkbox>
             </v-list-tile>
-          </template>
-          <!--<v-list-tile
-            v-for="(subChekboxLabel,index) in subChekboxLabel.subChekboxLabels"
-            :key="index"
-          >
-            <v-list-tile-content>
-              <v-list-tile-title>{{ subChekboxLabel.title }}</v-list-tile-title>
-            </v-list-tile-content>
-
-            <v-list-tile-action>
-              <v-icon>{{ subChekboxLabel.action }}</v-icon>
-            </v-list-tile-action>
-          </v-list-tile> -->
-        </v-list-group>
+            <v-radio-group style="margin-left:80px!important" v-model="language.level_of_proficiency_code">
+              <template v-for="level in language.level_of_proficiency">
+                <v-radio :label="level.name" :value="level.id" :key='level.id'>
+                </v-radio>
+              </template>
+            </v-radio-group>
+          </v-list-group>
+          <v-list-group no-action sub-group :key="language.id" v-else
+            @click.once="getLevelLanguage(language.id,index)">
+            <v-list-tile slot="activator" class="v-list__no_hover">
+              <v-checkbox :label="language.name" v-model="language.value">
+              </v-checkbox>
+            </v-list-tile>
+            <v-radio-group style="margin-left:80px!important" v-model="language.level_of_proficiency_code">
+              <template v-for="level in language.level_of_proficiency">
+                <v-radio :label="level.name" :value="level.id" :key='level.id'>
+                </v-radio>
+              </template>
+            </v-radio-group>
+          </v-list-group>
+        </template>
       </v-list>
     </v-flex>
   </v-layout>

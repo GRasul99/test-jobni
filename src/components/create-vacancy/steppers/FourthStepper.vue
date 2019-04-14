@@ -12,18 +12,27 @@
       </v-radio-group>
     </v-flex>
     <v-flex xs6>
-      <v-list>
-        <v-list-tile
-          v-for="(textareaLabel,index) in textareaLabels"
-          :key="index"
-        >
-          <v-text-field
-            :name="name"
-            :label="textareaLabel.title"
-            id="id"
-          ></v-text-field>
-        </v-list-tile>
-      </v-list>
+      <v-layout column>
+        <v-select solo class="no-text-details pa-0 ma-0" :items="items_brand_car" v-model="brand" label="Марка">
+        </v-select>
+        <v-select solo class="no-text-details pa-0 ma-0" :items="items_fuel_car" v-model="fuel_type"
+          label="Тип двигателя"></v-select>
+        <v-select solo class="no-text-details pa-0 ma-0" :items="items_body_type" v-model="body_type"
+          label="Тип кузова"></v-select>
+        <v-text-field class="no-text-details" v-model="model" label="Модель"></v-text-field>
+        <v-text-field type='number' class="no-text-details" v-model="year_of_manufacture" label="Год выпуска">
+        </v-text-field>
+        <v-text-field type="number" class="no-text-details" v-model="fuel_consumption_city"
+          label="Расход топлива (город)"></v-text-field>
+        <v-text-field type="number" class="no-text-details" v-model="fuel_consumption_highway"
+          label="Расход топлива (трасса)"></v-text-field>
+        <v-text-field type="number" class="no-text-details" v-model="cargo_capacity" label="Грузоподъемность">
+        </v-text-field>
+        <v-text-field type="number" class="no-text-details" v-model="capacity_liters"
+          label="Емкость багажного отделения"></v-text-field>
+        <v-text-field type="number" class="no-text-details" v-model="capacity_of_people" label="Вместимость">
+        </v-text-field>
+      </v-layout>
     </v-flex>
   </v-layout>
 </template>
@@ -34,25 +43,27 @@ export default {
     return {
       radioGroup: '',
       checkbox: '',
+      items_brand_car: '',
+      items_fuel_car: '',
+      items_body_type: '',
+      brand: '',
+      fuel_type: '',
+      body_type: '',
+      model: '',
+      year_of_manufacture: '',
+      fuel_consumption_city: '',
+      fuel_consumption_highway: '',
+      cargo_capacity: '',
+      capacity_liters: '',
+      capacity_of_people: '',
       radioLabels: [
         { title: 'A - мотоциклы' },
         { title: 'B - Легковые авто' },
         { title: 'C - Грузовые авто' },
         { title: 'D - Автобусы' },
-        { title: 'E - Авто с прицепом' },
+        { title: 'E - Авто с прицепом' }
       ],
-      chekboxLabels: [
-        { title: 'Польный день' },
-        { title: 'Частичная занятось' },
-        { title: 'Посменно' },
-        { title: 'Работа в вечернее время' },
-        { title: 'Работа в ночное время' },
-        { title: 'Работа в выходные' },
-        { title: 'Вахта' },
-        { title: 'По заявкам' },
-        { title: 'Свободный график' },
-        { title: 'Контракт' }
-      ]
+      items: []
     }
   }
 }

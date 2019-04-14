@@ -2,34 +2,31 @@
   <v-layout row wrap>
     <v-flex xs6>
       <h3>Профессии</h3>
-      <v-list>
-        <v-list-group
-          v-for="chekboxLabel in chekboxLabels"
-          :key="chekboxLabel.title"
-          no-action
-        >
-          <template v-slot:activator>
-            <v-list-tile>
-              <v-checkbox
-                v-model="checkbox"
-                :label="chekboxLabel.title"
-              ></v-checkbox>
-            </v-list-tile>
+        <v-list class="mt-2 professionsList">
+          <template v-for="(profession, index) in professions">
+            <v-list-group v-if="profession.competences" no-action sub-group :key="profession.id">
+              <v-list-tile slot="activator">
+                <v-checkbox :label="profession.name" v-model="profession.value">
+                </v-checkbox>
+              </v-list-tile>
+              <v-list-tile v-for="competence in profession.competences" :key="competence.id">
+                <v-checkbox :label="competence.name" v-model="competence.value">
+                </v-checkbox>
+              </v-list-tile>
+            </v-list-group>
+            <v-list-group v-else no-action sub-group @click.once="getCompetence(profession.id, index)"
+              :key="profession.id">
+              <v-list-tile slot="activator">
+                <v-checkbox :label="profession.name" v-model="profession.value">
+                </v-checkbox>
+              </v-list-tile>
+              <v-list-tile v-for="competence in profession.competences" :key="competence.id">
+                <v-checkbox :label="competence.name" v-model="competence.value">
+                </v-checkbox>
+              </v-list-tile>
+            </v-list-group>
           </template>
-          <!--<v-list-tile
-            v-for="(subChekboxLabel,index) in subChekboxLabel.subChekboxLabels"
-            :key="index"
-          >
-            <v-list-tile-content>
-              <v-list-tile-title>{{ subChekboxLabel.title }}</v-list-tile-title>
-            </v-list-tile-content>
-
-            <v-list-tile-action>
-              <v-icon>{{ subChekboxLabel.action }}</v-icon>
-            </v-list-tile-action>
-          </v-list-tile> -->
-        </v-list-group>
-      </v-list>
+        </v-list>
     </v-flex>
     <v-flex xs6>
       <h3>Сферы деятельности</h3>
@@ -39,7 +36,6 @@
           :key="index"
         >
           <v-checkbox
-            v-model="secondCheckboxч"
             :label="secondCheckbox.title"
           ></v-checkbox>
         </v-list-tile>
